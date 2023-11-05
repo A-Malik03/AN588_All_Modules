@@ -1,0 +1,257 @@
+---
+title: "Module1"
+author: "Allister Malik"
+date: "2023-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Use <- to assign a value to an object
+
+Object can be a variable, function, or a complex data structure
+
+Can also use = but is usually prefered to assign values to function arguments
+
+To list objects assigned in the workspace, use the function ls() with no arguments
+TO remove all objects or a singular object, use the rm() function
+```{r}
+x <- 5 #assign the variable x as the number 5
+x
+y <- 7 *4 #assign variable y as the product of 7 and 4(same aa y <- 28)
+y
+z <- "hello" #variable z is the character hello
+z
+ls() #will list all assigned variables in the workspace(currently there are 3: z, y, and z)
+
+rm(x) #remove the variable x
+ls()
+rm(list= ls()) #remove all variblaes 
+```
+
+The working directory is the default folder where dialog boxes will open and where files and output will be stored
+
+To set the working directory use the function setwd("[path]")
+[path] is the path to the desired directory
+
+TO list the current working directory use the function getwd(), which as no arguments
+
+Use the new file button(top left corner, blank page with green circle with the white plus sign) to create a script/text editor document.
+We will use the R Markdown text editor for the modules
+
+Top begining(between the ---) is the YAML, which is human readable data that configures the file.
+R markdown shows the title of the file, author, date, and output(html file)
+    - output means how the file will come out when KNITTED, ours will come out as html files
+
+You can run current lines or highlighted lines by using command+RETURN or control+R
+
+Add comments in the chunks using #
+
+Can use the help function to find out how to use a function by writing ?[function name] in the console(bottom left window)
+```{r}
+x <- 6
+y <- 6
+z <- x * 7
+x2 <- x^2
+
+x <- 10
+log(x)
+factorial(x)
+y <- 81
+z <- -8.349218
+round(z, digits = 3) #rounds to nearest 3 decimal places/1000ths place
+
+abs(z * y)
+```
+
+# Packages
+Packages are sets of reusable functions created and are like libraries. Can be installed into R and then attached to a workspace 
+
+If a package is loaded that has a function with the same name as one in a previously loaded package, then the older one is masked and the more recently attached one is used if called by a user.
+
+To install packages:
+Select packages in the bottom right window and choose from the system library
+
+OR
+
+Click on tools tab in the application menu options, and click Install packages. It will , by default, install from the CRAN package repository. Choose where the file goes. 
+
+OR
+
+Install from the console by using the function install.packages([package name]) you can add the lib argument to choose a path to intall the package
+
+Installing them puts them on your computer, does not put them in the R session you need them in. To put them into your workspace:
+
+Select Packages menu and choose Package Manager the check the box of the package
+
+OR 
+
+Use the require() or library() function. .  .  I prefer to use library
+
+To see a list of packages installed use library() or installed.packages()
+
+To see a list of packages in your WORKSPACE use (.packages())
+
+TO UNLOAD a packages use detach(pacjage:[package name])
+
+To updata an installed package use update.packages()
+
+
+Note that the workspace you see is divided into four separate panes (Source and Console panes on the left, two customizable panes on the right). You can modify the layout and appearance of the RStudio IDE to suit your taste by selecting Preferences from the RStudio menu (MacOS) or by selecting Global Options from the Tools menu (both MacOS and Windows).
+
+The Source pane is where you work with and edit various file types (e.g., scripts), while the Console pane is where you send commands to the R interpreter and see the results of those commands. The other two customizable panes provide easy access to useful tools and overviews of your interactions with R. For example, the Environment tab lists all of the objects in your current workspace, the History tab shows the log of all of the commands you have sent to the interpreter, and the Packages tab provides a convenient interface for installing and loading packages.
+
+
+Almost everything in R can be seen as an object
+An object can fall into different classes/types, including:
+
+numeric (real numbers)
+integer (integer numbers)
+
+character (for text)
+
+logical (Boolean values, i.e., TRUE or FALSE, represented as 1 and 0, respectively)
+
+complex (for imaginary numbers), and factor (for defined levels of categorical variables… we will talk more about factors later on).
+
+function (built-in and user defined functions have this class )
+
+You can identify the class of an object(s) using the class() function
+```{r}
+class(1)
+class(integer(1))
+class("hello")
+class(TRUE)
+class(2i + 1)
+class(mean)
+x <- c("2", 2, "zombies")
+class(x) #give character as the class
+```
+
+
+
+Vectors are variables with one or more values of the same type
+One way to create vectors is the c() which is concatenate (i like to think of it as combine)
+
+```{r}
+x <- c(15, 16, 12, 3, 21, 45, 23) #use commas to separate values
+x #vector of numeric values
+class(x)
+y <- c("once", "upon", "a", "time")
+y #vector os character values
+class(y) 
+```
+You can also use : which is a sequence operator to create vectors(basically creates a vector from x to X if it was x:X)
+```{r}
+x <- 1:10
+x
+```
+Use the function length() to find the lenght of the vector object or the number of elements in the vector
+```{r}
+length(x) #length of vector x which is 10 elements
+```
+
+
+
+Can create functions by:
+```{r}
+f <- function(x){ #f will be function with a single input known as x. Open bracket to start the function skeleton 
+} #end the function
+f(x) #can now be used as this
+```
+
+
+```{r}
+x <- 15:28  #or x <- c(15, 16, 17...)
+y <- 1:4
+x + y
+```
+
+Here's a basic function that says hi to the name you put in:
+```{r}
+sayhi <- function(x) { #input x, which is a name
+    hi <- paste("greetings, ", x, "!", sep = "")
+    # the paste command allows string concatenation
+    return(hi) #return the hi object, which is the phrase
+}
+name1 <- "septimus"
+name2 <- "thomasina"
+sayhi(name1)
+sayhi(name2)
+```
+# Quitting R
+Working in RStudio, you can save script files (which, again, are just plain text files) using standard dialog boxes.
+
+When you go to quit R (by using the q() function or by trying to close RStudio), you will be asked whether you want to
+
+Save workspace image to XXX/.Rdata? [where XXX is the path to your working directory].
+
+Saying “yes” will store all of the contents of your workspace in a single hidden file, .Rdata. The leading “.” makes this invisible to most operating systems, unless you deliberately make it possible to see hidden files. The next time you start R, this workspace will be loaded again automatically, provided you have not changed your working directory.
+
+A second hidden file, .Rhistory, will also be stored in the same directory, which will contain a log of all commands you sent to the console during your R session.
+
+
+#Updating R
+R has been under continuous and active development since its inception in the late 1990s, and several updates are made available each year. These updates help to fix bugs, improve speed and computational efficiency, and add new functionality to the software. The following information on how to update R is based on this post from R Bloggers[https://www.r-bloggers.com/2017/05/upgrade-r-without-losing-your-packages/]
+
+Step 1: Before upgrading, build a temporary file that contains all your package locations:
+```{r}
+tmp <- installed.packages()
+installedpkgs <- as.vector(tmp[is.na(tmp[, "Priority"]), 1])
+save(installedpkgs, file = "installed_old.rda")
+```
+
+Step 2: Get the latest version of R
+
+Go to the R Project website
+Click on CRAN in the sidebar on the left
+Choose the CRAN Mirror site that you like
+Click on Download R for… [choose your operating system]
+Follow the installation procedures for your system
+Restart RStudio
+
+
+Step 3: Reload, reinstall, and update your packages:
+
+load("installed_old.rda")
+tmp <- installed.packages()
+installedpkgs.new <- as.vector(tmp[is.na(tmp[, "Priority"]), 1])
+missing <- setdiff(installedpkgs, installedpkgs.new)
+
+
+
+
+install.packages(missing)
+update.packages()
+#Run these last two lines separately... sometimes they require interactive commands:
+
+
+if you have any packages from {BioConductor} (a popular bioinformatics repository for specialized R-packages), you may need to also run this code:
+
+chooseBioCmirror()
+BiocManager::install()
+load("installed_old.rda")
+tmp <- installed.packages()
+installedpkgs.new <- as.vector(tmp[is.na(tmp[, "Priority"]), 1])
+missing <- setdiff(installedpkgs, installedpkgs.new)
+for (i in 1:length(missing)) BiocManager::install(missing[i])
+
+
+
+
+Potentially easier ways to update and carry over packages:
+If you’re using a Windows computer, you can use the package {installr} to update R and all your packages.
+
+If you’re using a Mac, you can use the package {updateR}, but only from base R (not within RStudio).
+
+Finally, to reassure yourself that you have done everything correctly, type these two commands in the RStudio console to see what you’ve got in terms of what version of R you are running and what packages you have installed:
+
+
+version
+packageStatus()
+
+
+
+END
